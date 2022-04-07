@@ -6,8 +6,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^5",
-    "express": "^4"
+    "@sap/cds": "5.8.4",
+    "express": "^4",
+    "hdb": "^0.18.3"
   },
   "devDependencies": {
     "sqlite3": "^5.0.2"
@@ -43,11 +44,14 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sqlite",
+        "kind": "sql",
         "credentials": {
           "database": "my.db"
         }
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   }
 }
