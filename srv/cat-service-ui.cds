@@ -1,7 +1,7 @@
 using CatalogService from './cat-service';
 
-annotate CatalogService.Books with @odata.draft.enabled;
 
+annotate CatalogService.Books with @odata.draft.enabled;
 
 annotate CatalogService.Books with @(UI : {
     HeaderInfo       : {
@@ -10,49 +10,19 @@ annotate CatalogService.Books with @(UI : {
         Title          : {
             $Type : 'UI.DataField',
             Value : title
-        },
-        Description    : {
-            $Type : 'UI.DataField',
-            Value : ID
         }
     },
     SelectionFields  : [
-        ID,
         author_name,
         title
     ],
     LineItem         : [
-        {
-            $Type  : 'UI.DataFieldForAction',
-            Action : 'CatalogService.debug',
-            Label  : 'Debug',
-            Visible,
-            Enabled
-        },
-        {
-            Value : ID,
-            Label : 'ID'
-        },
-        {
-            Value : author_name,
-            Label : 'Author name'
-        },
-        {
-            Value : title,
-            Label : 'Title'
-        },
-        {
-            Value : stock,
-            Label : 'Stock'
-        },
-        {
-            Value : price,
-            Label : 'Price'
-        },
-        {
-            Value : created_by,
-            Label : 'Price'
-        }
+        {Value : ID},
+        {Value : author_name},
+        {Value : title},
+        {Value : stock},
+        {Value : price},
+        {Value : createdBy}
     ],
     Facets           : [{
         $Type  : 'UI.ReferenceFacet',
@@ -60,42 +30,20 @@ annotate CatalogService.Books with @(UI : {
         Target : '@UI.FieldGroup#Main'
     }],
     FieldGroup #Main : {Data : [
-        {
-            Value : ID,
-            Label : 'ID'
-        },
-        {
-            Value : author_name,
-            Label : 'Author name'
-        },
-        {
-            Value : title,
-            Label : 'Title'
-        },
-        {
-            Value : stock,
-            Label : 'Stock'
-        },
-        {
-            Value : price,
-            Label : 'Price'
-        }
+        {Value : ID},
+        {Value : author_name},
+        {Value : title},
+        {Value : stock},
+        {Value : price},
+        {Value : createdBy}
     ]}
-}, ) {
+});
 
-};
-
-
-annotate CatalogService.Books actions {
-    @(
-        Common.SideEffects              : {TargetEntities : [_it, ]},
-        cds.odata.bindingparameter.name : '_it',
-        Core.OperationAvailable         : _it.allowButton,
-        UI.FieldGroup
-    )
-    yourAction(email @title : 'Email'  @FieldControl.Mandatory,
-    position         @title : 'Position'
-    // something else
-    );
-
+annotate CatalogService.Books with {
+    ID          @(Common.Label : 'Book ID');
+    author_name @(Common.Label : 'Author');
+    title       @(Common.Label : 'Title');
+    stock       @(Common.Label : 'Stock');
+    price       @(Common.Label : 'Price');
+    createdBy   @(Common.Label : 'Entry creator');
 }
